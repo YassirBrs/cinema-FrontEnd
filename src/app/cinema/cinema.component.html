@@ -1,0 +1,208 @@
+<header style="margin-bottom: 50px;">
+  <nav>
+    <h2>
+      <a class="navbar-brand" href="/home"
+        ><img src="../assets/logocinema.png" alt="Logo Image"
+      /></a>
+    </h2>
+    <button class="nav-button fa fa-bars"></button>
+    <div>
+      <ul>
+        <button class="exit-menu fa fa-times"></button>
+        <li>
+          <a href="/home">Home</a>
+        </li>
+        <li>
+          <a class="underline" href="/cinema">Reservations</a>
+        </li>
+        <li>
+          <a>Showtimes</a>
+        </li>
+        <li>
+          <a>Contact</a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+</header>
+<div class="">
+  <div class="row">
+    <div class="col-md-2">
+      <ul *ngIf="villes" class="list-group">
+        <li
+          [ngClass]="ville == currentVille ? 'activee' : ''"
+          class="list-group-item clickable blackkk"
+          *ngFor="let ville of villes._embedded.villes"
+          (click)="onGetCinemas(ville)"
+        >
+          {{ ville.name }}
+        </li>
+      </ul>
+    </div>
+    <div class="col-md-10 black">
+      <div class="panel panel-default">
+        <div class="panel-heading black"><b>Listes Cinemas :</b></div>
+        <div class="panel-body blackk">
+          <ul *ngIf="cinemas" class="nav nav-pills">
+            <li
+              class="clickable"
+              [ngClass]="cinema == currentCinema ? 'activee' : ''"
+              *ngFor="let cinema of cinemas._embedded.cinemas"
+              (click)="onGetSalles(cinema)"
+            >
+              <a style="color: aliceblue;">{{ cinema.name }}</a>
+            </li>
+          </ul>
+          <div class="row" *ngIf="salles">
+            <div *ngFor="let salle of salles._embedded.salles">
+              <div class="col-md-6">
+                <div class="panel panel-default">
+                  <div class="panel-heading black">
+                    <b>{{ salle.name }}</b>
+                    :
+                  </div>
+
+                  <div class="panel-body black" *ngIf="salle.projections">
+                    <div class="row">
+                      <div class="col-md-6">
+                        <img
+                          style="width: 130;"
+                          src="{{
+                            cinemaService.host +
+                              '/imageFilm/' +
+                              salle.projections._embedded.projections[0].film.id
+                          }}"
+                        />
+                        <br />
+                        <div class="star">
+                          <div class="fa fa-star mar"></div>
+                          <div class="fa fa-star"></div>
+                          <div class="fa fa-star"></div>
+                          <div class="fa fa-star"></div>
+                          <div class="fa fa-star-half-o"></div>
+                          <div class="val">(4.5/5.0)</div>
+                        </div>
+                      </div>
+                      <div class="col-md-6">
+                        <ul class="list-group" style="color: black;">
+                          <li class="list-group-item"><b>Seance :</b></li>
+                          <li
+                            [ngClass]="p == currentProjection ? 'activee' : ''"
+                            (click)="onGetTicketsPlaces(p)"
+                            *ngFor="
+                              let p of salle.projections._embedded.projections
+                            "
+                            class="list-group-item"
+                          >
+                            {{ p.seance.heureDebut | slice: 0:5 }}
+                            <span class="badge badge-primary badge-pill"
+                              >{{ p.prix }} Dh</span
+                            >
+                          </li>
+                        </ul>
+                      </div>
+                    </div>
+                    <!-- <ng-template #mymodal>
+                      <div class="modal-header">
+                        <h4 class="modal-title" id="modal-basic-title">
+                          Room Informations
+                        </h4>
+                      </div>
+                      <div class="row container">
+                        <div class="col">id</div>
+                        <div class="w-100"></div>
+                        <div class="col">State</div>
+                        <div class="w-100"></div>
+                        <div class="form-group">
+                          <label class="col-sm-2 control-label">ggggggg</label>
+                        </div>
+                        <div class="w-100"></div>
+                        <div class="col">Detail</div>
+                        <div class="w-100"></div>
+                        <h5>
+                          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;This room
+                          contains:
+                        </h5>
+                        <div class="w-100"></div>
+                      </div>
+
+                      <div class="modal-footer">
+                        <button
+                          type="button"
+                          class="btn btn-success"
+                          (click)="getDismissReason(mymodal)"
+                        >
+                          Ok
+                        </button>
+                      </div>
+                    </ng-template> -->
+                    <div *ngIf="currentProjection">
+                      <div *ngIf="salle.id == currentProjection.salle.id">
+                        <div class="row" *ngIf="currentProjection.tickets">
+                          <button
+                            [disabled]="t.reserve == true"
+                            class="{{ getTicketClass(t) }} seat"
+                            (click)="onSelectTicket(t)"
+                            *ngFor="
+                              let t of currentProjection.tickets._embedded
+                                .tickets
+                            "
+                          >
+                            {{ t.place.numero }}
+                          </button>
+                        </div>
+                        <hr />
+                        <br />
+                        <div>
+                          <button class="seat nonreserve"></button
+                          ><i style="margin-right: 80px;">Available</i>
+                          <button class="seat selected"></button
+                          ><i style="margin-right: 80px;">Booked</i>
+                          <button class="seat reserve"></button
+                          ><i style="margin-right: 30px;">Sold Out</i>
+                        </div>
+                        <hr />
+                        <br />
+                        <div *ngIf="selectedTickets.length > 0">
+                          <form #f="ngForm" (ngSubmit)="onPayTickets(f.value)">
+                            <div class="form-group">
+                              <label class="">Nom Client :</label><br />
+                              <input
+                                type="text"
+                                class="control-label"
+                                style="color: black;"
+                                name="nomClient"
+                                ngModel
+                              />
+                            </div>
+                            <div class="form-group">
+                              <label class="">code Paiement :</label><br />
+                              <input
+                                type="text"
+                                class="control-label"
+                                style="color: black;"
+                                name="codePaiement"
+                                ngModel
+                              />
+                            </div>
+                            <button
+                              type="submit"
+                              class="btn btn-success"
+                              style="float: right;"
+                            >
+                              Payer
+                            </button>
+                          </form>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

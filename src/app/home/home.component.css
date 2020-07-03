@@ -1,7 +1,4 @@
 body {
-  background-color: black;
-}
-body {
   overflow-x: hidden;
 }
 
@@ -29,7 +26,7 @@ ul {
 /* header */
 header {
   font-family: "Lora", serif;
-  min-height: 0vh;
+  min-height: 100vh;
   background: -webkit-gradient(
       linear,
       left top,
@@ -256,13 +253,13 @@ nav div.show {
   height: 550px;
 }
 
-.slideshow-container {
+/* .slideshow-container {
   max-width: 1000px;
   position: relative;
   margin: auto;
-}
+} */
 
-.mySlides {
+/* .mySlides {
   display: none;
 }
 
@@ -294,7 +291,7 @@ nav div.show {
 .prev:hover,
 .next:hover {
   background-color: rgba(0, 0, 0, 0.8);
-}
+} */
 
 .dot {
   cursor: pointer;
@@ -371,20 +368,20 @@ nav div.show {
 }
 
 /*
-  THE PERFECT BLEND SECTION
-*/
+    THE PERFECT BLEND SECTION
+  */
 .cake-background {
   background: black
-    url("http://www.rustiquerichmond.co.uk/wp-content/uploads/2014/06/desert.jpg")
+    url("http://www.movienewsletters.net/media/slider/1200x444/260508.jpg")
     no-repeat center center;
   background-size: cover;
-  background-attachment: fixed;
+  /* background-attachment: fixed; */
   height: 500px;
 }
 
 /*
-  CULINARY DELIGHT SECTION
-*/
+    CULINARY DELIGHT SECTION
+  */
 .reservation-section {
   margin-bottom: 40px;
 }

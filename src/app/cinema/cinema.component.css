@@ -1,5 +1,61 @@
-body {
+.clickable {
+  cursor: pointer;
+}
+.ticket {
+  margin: 5px;
+  /* padding: 10; */
+  width: 40px;
+}
+.mar {
+  margin-left: 14px;
+}
+.star {
+  color: gold;
+  font-size: 2rem;
+  float: left;
+  padding-right: 2rem;
+  padding-left: 2rem;
+}
+.black {
+  background-color: rgb(68, 68, 68);
+  color: aliceblue;
+}
+.blackkk :hover {
+  background-color: rgb(99, 98, 98);
+  color: aliceblue;
+}
+.blackkk {
   background-color: black;
+  color: aliceblue;
+}
+.blackk {
+  background-color: black;
+  color: aliceblue;
+}
+.activee {
+  background-color: #e54545;
+  border-radius: 5%;
+}
+/* ------------------seat----------------------- */
+.seat {
+  width: 39.6px;
+  height: 44px;
+  border-radius: 4px 4px 8px 8px;
+  background: #cc1f2f;
+  position: relative;
+  border: 1px solid #000;
+  margin: 3px;
+  display: inline-block;
+}
+
+.reserve {
+  background: linear-gradient(#ccc 0%, #ccc 70%, #000 70%, #ccc 77%);
+}
+.nonreserve {
+  background: linear-gradient(#cc1f2f 0%, #cc1f2f 70%, #000 70%, #cc1f2f 77%);
+}
+.selected {
+  background: linear-gradient(#cc5e1f 0%, #cc6d1f 70%, #000 70%, #cc641f 77%);
 }
 body {
   overflow-x: hidden;
@@ -7,12 +63,6 @@ body {
 
 h2 {
   margin-top: 0;
-}
-
-button {
-  border: 0;
-  background: 0;
-  cursor: pointer;
 }
 
 a {
